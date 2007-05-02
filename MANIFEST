@@ -6,6 +6,8 @@ README
 lib/Sub/Information.pm
 t/00-load.t
 t/10-info.t
+t/20-noalias.t
+t/30-dump.t
 t/pod-coverage.t
 t/pod.t
 Makefile.PL

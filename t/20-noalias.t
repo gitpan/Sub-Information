@@ -8,24 +8,24 @@ my $CLASS;
 
 BEGIN {
     $CLASS = 'Sub::Information';
-    use_ok $CLASS, as => 'peek'
+    use_ok $CLASS
       or die;
 }
 
-ok defined &peek, 'peek() should be exported to our namespace';
-ok my $info = peek( \&peek ),
+ok defined &inspect, 'inspect() should be exported to our namespace';
+ok my $info = inspect( \&inspect ),
   '... and calling it with a valid sub reference should succeed';
 isa_ok $info, $CLASS, '... and the object it returns';
 
 can_ok $info, 'name';
 
 ok !exists $INC{'Sub/Identify.pm'},
-  '... and its helper module should not be loaded before it is needed';
+    '... and its helper module should not be loaded before it is needed';
 is $info->name, "inspect",
   '... and it should return the original name of the subroutine';
 
 ok exists $INC{'Sub/Identify.pm'},
-  '... and its helper module should be loaded after it is needed';
+    '... and its helper module should be loaded after it is needed';
 
 can_ok $info, 'package';
 is $info->package, $CLASS,
@@ -44,10 +44,10 @@ like $info->address, qr/^\d+$/, '... and it should return the address';
 
 sub foo { my $x = 3; my @y = ( 4, 5 ) }
 can_ok $info, 'variables';
-is_deeply peek( \&foo )->variables, { '$x' => \undef, '@y' => [] },
+is_deeply inspect( \&foo )->variables, { '$x' => \undef, '@y' => [] },
   '... and the variable values should be undef if the sub is not in use';
 
-my $bar = peek( \&bar );
+my $bar = inspect( \&bar );
 bar();
 
 sub bar {
@@ -65,18 +65,3 @@ my $vars = $bar->variables;
 delete $vars->{'$bar'};
 is_deeply $vars, { '$x' => \undef, '@y' => [] },
   '... but variable values should not be cached';
-
-# sub foo {
-#   my $sub = sub { ... };
-# }
-# can I get foo() from $sub?
-
-# find out what the exported subs name is
-__END__
-
-# can I get the size in memory?
-my $sub = sub {
-    my $x = shift;
-    my $y = 3;
-    return $x + $y;
-};

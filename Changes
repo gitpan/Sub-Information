@@ -1,5 +1,10 @@
 Revision history for Sub-Information
 
+0.02    May 2, 2007
+        - Incorporated the Devel::Peek patch from Adriano Ferreira.
+        - Incorporated patch from Adriano Ferreira to make the basic importing
+          work properly.
+
 0.01    May 1, 2007
         First version of Sub::Information. 
 
