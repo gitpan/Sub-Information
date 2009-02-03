@@ -2,18 +2,19 @@
 use ExtUtils::MakeMaker;
 WriteMakefile
 (
-  'NAME' => 'Sub::Information',
-  'VERSION_FROM' => 'lib/Sub/Information.pm',
-  'PREREQ_PM' => {
-    'Data::Dump::Streamer' => '1.14',
-    'Devel::Peek' => '0',
-    'PadWalker' => '0',
-    'Scalar::Util' => '0',
-    'Sub::Identify' => '0',
-    'Test::More' => '0'
-  },
-  'INSTALLDIRS' => 'site',
-  'EXE_FILES' => [],
-  'PL_FILES' => {}
-)
+          'PL_FILES' => {},
+          'INSTALLDIRS' => 'site',
+          'NAME' => 'Sub::Information',
+          'EXE_FILES' => [],
+          'VERSION_FROM' => 'lib/Sub/Information.pm',
+          'PREREQ_PM' => {
+                           'Test::More' => 0,
+                           'Scalar::Util' => 0,
+                           'PadWalker' => 0,
+                           'Data::Dump::Streamer' => '1.14',
+                           'Sub::Identify' => 0,
+                           'Devel::Peek' => 0,
+                           'B' => 0
+                         }
+        )
 ;

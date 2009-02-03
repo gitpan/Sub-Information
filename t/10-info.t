@@ -1,7 +1,7 @@
 #!/usr/bin/perl -w
 
 use strict;
-use Test::More tests => 20;
+use Test::More tests => 24;
 
 use lib 'lib';
 my $CLASS;
@@ -65,6 +65,20 @@ my $vars = $bar->variables;
 delete $vars->{'$bar'};
 is_deeply $vars, { '$x' => \undef, '@y' => [] },
   '... but variable values should not be cached';
+
+my $line_file_test = peek(\&line_file_test);
+can_ok $line_file_test, 'line';
+is $line_file_test->line, 24,
+  '... and it should report the correct line number';
+
+can_ok $line_file_test, 'file';
+is $line_file_test->file, "'foo/some_file.t'",
+    '... and it should report the correct file name';
+
+# line 23 'foo/some_file.t'
+sub line_file_test {
+    my $x = 2;
+}
 
 # sub foo {
 #   my $sub = sub { ... };

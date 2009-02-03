@@ -4,6 +4,7 @@ use warnings;
 use strict;
 
 use Scalar::Util ();
+use B;
 
 use 5.006;    # need the warnings pragma :(
 
@@ -13,11 +14,11 @@ Sub::Information - Get subroutine information
 
 =head1 VERSION
 
-Version 0.02
+Version 0.10
 
 =cut
 
-our $VERSION = '0.02';
+our $VERSION = '0.10';
 
 =head1 SYNOPSIS
 
@@ -178,6 +179,23 @@ The returned values are not cached.
 
 From:  C<PadWalker::peek_sub>
 
+=head3 C<line>
+
+ my $line_number = $info->line;
+
+Returns the approximate line number where the sub was declared.  This is
+experimental.
+
+From : C<B>
+
+=head3 C<file>
+
+ my $file_name = $info->file;
+
+Returns the file name where the sub was declared.  This is experimental.
+
+From : C<B>
+
 =head1 CAVEATS
 
 This is ALPHA code.
@@ -285,6 +303,8 @@ BEGIN {
         variables => {
             code => sub { PadWalker::peek_sub(shift) }
         },
+        line => { code => sub { B::svref_2object(shift)->START->line } },
+        file => { code => sub { B::svref_2object(shift)->START->file } },
 
         # XXX I suspect these are useless
         #size       => { code => sub { Devel::Size::size(shift) } },

@@ -8,6 +8,7 @@ my $builder = Module::Build->new(
     dist_author       => 'Curtis "Ovid" Poe <ovid@cpan.org>',
     dist_version_from => 'lib/Sub/Information.pm',
     requires          => {
+        'B'                    => 0,
         'Test::More'           => 0,
         'Data::Dump::Streamer' => 1.14,
         'Devel::Peek'          => 0,
